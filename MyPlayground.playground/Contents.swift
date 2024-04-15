@@ -21,7 +21,19 @@ class BankAccount {
         get {
             return accountBalance - fees
         }
+        set (newBalance){
+            accountBalance = newBalance - fees
+        }
     }
+    
+    lazy var myProperty: String = { // 사용하고 싶을 때 초기화하라는 것으로 lazy 를 사용. let 에는 lazy를 사용할 수 없음
+        /* 오래 걸리는 작업
+        var result = resourceIntensiveTask()
+        result = processData(data: result)
+         */
+//        return result
+        return ""
+    }() // ()를 붙여 실행문으로 만들어 주면 {} 안의 실행결과가 myProperty 로 저장됨
     
     // 프로퍼티의 디폴트 값을 초기화해줘서 init() 이 빠져있음
     // 클래스는 참조타입이다. 타입이 불일치하면 오류 발생. 클래스는 생성자함수가 위임했기 때문에 생성자함수(init())가 필요. 디폴트 값을 초기화해줘서 init() 이 생략되어 있음
@@ -56,6 +68,8 @@ class BankAccount {
 }
 
 var bankAccount = BankAccount()
+
+bankAccount.balanceLessFees = 12123.12
 
 print(bankAccount.accountNumber)
 print(bankAccount.accountBalance)
