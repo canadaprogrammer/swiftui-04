@@ -22,11 +22,13 @@ class BankAccount {
             return accountBalance - fees
         }
         set (newBalance){
+            // self. 를 사용하지 않음
+            // 만약 newBalance 대신 accountBalance 라는 이름으로 변수를 받는다면 범위 한정자인 self. 을 붙여줘야 한다.
             accountBalance = newBalance - fees
         }
     }
     
-    lazy var myProperty: String = { // 사용하고 싶을 때 초기화하라는 것으로 lazy 를 사용. let 에는 lazy를 사용할 수 없음
+    lazy var myProperty: String = { // 사용하고 싶을 때 myProperty 를 불러오는 것으로 lazy 를 사용. let 에는 lazy를 사용할 수 없음
         /* 오래 걸리는 작업
         var result = resourceIntensiveTask()
         result = processData(data: result)
