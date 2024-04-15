@@ -12,11 +12,26 @@ var greeting = "Hello, playground"
 // 회사마다 네이밍 컨벤션이라고 있어서 이름 설정시 규칙이 있음
 
 class BankAccount {
-    var accountBlance: Float = 0
+    var accountBalance: Float = 0
     var accountNumber: Int = 0
+    
+    // 인스턴스 메서드
+    func displayBalance() -> Void {
+        print("Number \(accountNumber)")
+        print("Current Balance \(accountBalance)")
+    }
+    
+    // class 타입 메서드 상속 재정의 가능, static 은 재정의 불가능
+    class func getMaxBalance() -> Float {
+        return 1000000.0
+    }
 }
 
 var bankAccount = BankAccount()
 
-print(bankAccount.accountBlance)
+print(bankAccount.accountBalance)
 print(bankAccount.accountNumber)
+
+bankAccount.displayBalance()
+
+print(BankAccount.getMaxBalance())
