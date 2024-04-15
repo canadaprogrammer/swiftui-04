@@ -107,3 +107,16 @@ var savingAccount = SavingsAccount(number: 12311, balance: 600.00, rate: 0.07)
 
 print(savingAccount.calculateInterest())
 savingAccount.displayBalance()
+
+extension Double {
+    var squared: Double {
+        return self * self
+    }
+    
+    var cubed: Double {
+        return self * self * self
+    }
+}
+
+let myValue: Double = 3.0
+print(myValue.cubed)
