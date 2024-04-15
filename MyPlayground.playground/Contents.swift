@@ -79,3 +79,31 @@ print(bankAccount.accountBalance)
 bankAccount.displayBalance()
 
 print(BankAccount.getMaxBalance())
+
+class SavingsAccount: BankAccount {
+    var interestRate: Float = 0.0
+    
+    init(number: Int, balance: Float, rate: Float) {
+        interestRate = rate
+        // super 가 나중에 오는 것은
+        // 함수가 가지고 있는 프로퍼티 값을 채우는 것을 우선
+        // 부모의 초기화 함수를 호출해줘서 프로퍼티를 완성함
+        super.init(number: number, balance: balance)
+    }
+    
+    func calculateInterest() -> Float {
+        return interestRate * accountBalance
+    }
+    
+    override func displayBalance() {
+//        print("Number \(accountNumber)")
+//        print("Current Balance \(accountBalance)")
+        super.displayBalance()
+        print("Prevailing interest rate is \(interestRate)")
+    }
+}
+
+var savingAccount = SavingsAccount(number: 12311, balance: 600.00, rate: 0.07)
+
+print(savingAccount.calculateInterest())
+savingAccount.displayBalance()
