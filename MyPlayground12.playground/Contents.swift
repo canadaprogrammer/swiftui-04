@@ -45,3 +45,27 @@ print(myClass2.name)    // David
  싱글톤 패턴에서는 클래스를 사용하는데 .. 의 이유로 다른 곳에서는 구조체를 사용한다.
 */
 
+/*
+ enum 은 분류를 위한 자료형
+ 열거형 객체 형태로 존재하기 때문에 property를 받을 수 있게 됐다
+*/
+enum Temperature {
+    case hot
+    case warm
+    case cold(centigrade: Int)
+}
+
+func displayTempInfo(temp: Temperature) {
+    switch temp {
+    case .hot:
+        print("It is hot")
+    case .warm:
+        print("It is warm")
+    case .cold(let centigrade) where centigrade <= 0:
+        print("Ice warning: \(centigrade) degrees.")
+    case .cold:
+        print("It is cold")
+    }
+}
+
+displayTempInfo(temp: .cold(centigrade: -10))
