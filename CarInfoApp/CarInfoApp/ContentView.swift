@@ -11,15 +11,18 @@ struct ContentView: View {
     @StateObject var carModel = CarListModel()
     var body: some View {
         NavigationStack {
-            NavigationLink(destination: DetailView(fuelType: "전기", carModel: carModel)) {
-                Text("전기")
+            List {
+                NavigationLink(destination: DetailView(fuelType: "전기", carModel: carModel)) {
+                    Text("전기")
+                }
+                NavigationLink(destination: DetailView(fuelType: "내연기관", carModel: carModel)) {
+                    Text("내연기관")
+                }
+                NavigationLink(destination: DetailView(fuelType: "하이브리드", carModel: carModel)) {
+                    Text("하이브리드")
+                }
             }
-            NavigationLink(destination: DetailView(fuelType: "내연기관", carModel: carModel)) {
-                Text("내연기관")
-            }
-            NavigationLink(destination: DetailView(fuelType: "하이브리드", carModel: carModel)) {
-                Text("하이브리드")
-            }
+            .navigationTitle("TopGear")
 //            List(carModel.cars) { car in
 //                NavigationLink(destination: DetailView(fuelType: car.returnType())) {
 //                    Text(car.returnType())

@@ -6,7 +6,22 @@
 //
 
 import SwiftUI
+// protocol에는 실행구문을 넣을 수 없다.
+protocol CarDescriptionProtocol {
+    var brand: String { get }
+    var modelName: String { get }
+    var year: Int { get}
+    
+    func carInfo() ->String
+}
 
+// extension에 실행구문을 넣는다
+// protocol extension은 override 될 수 없다
+//extension CarDescriptionProtocol {
+//    func carInfo() -> String {
+//        return "Brand: \(brand)\nModel: \(modelName)\nYear: \(year)"
+//    }
+//}
 protocol Fuel {
     var fuelEfficiency: Double { get set }
     var isGasoline: Bool { get set }
@@ -29,7 +44,7 @@ extension Fuel {
     }
 }
 
-class Car: Identifiable {    
+class Car: Identifiable, CarDescriptionProtocol {
     let id = UUID()
     var brand: String
     var modelName: String
@@ -50,11 +65,14 @@ class Car: Identifiable {
     func returnType() -> String {
         return ""
     }
-    func carInfoView() -> some View {
-        Section {
-            Text("")
-        }
+    func carInfo() -> String {
+        return "Brand: \(brand)\nModel: \(modelName)\nYear: \(year)"
     }
+//    func carInfo() -> some View {
+//        Section {
+//            Text("")
+//        }
+//    }
 }
 
 class ElectricCar: Car, Electric {
@@ -72,15 +90,18 @@ class ElectricCar: Car, Electric {
     override func returnType() -> String {
         return "전기"
     }
-    func carInfoViewView() -> some View {
-        Section(header: Text("Electric Car")) {
-            Text("\(brand)")
-            Text("\(modelName)")
-            Text("\(electricEfficiency)")
-            Text("\(fullChargeHours)")
-            Text("\(autoLevel)")
-        }
+    override func carInfo() -> String {
+        return super.carInfo() + "\nElectric Efficiency: \(electricEfficiency)km/h\nFull Charge Hours: \(fullChargeHours)\n자율주행 \(autoLevel)단계"
     }
+//    func carInfo() -> some View {
+//        Section(header: Text("Electric Car")) {
+//            Text("\(brand)")
+//            Text("\(modelName)")
+//            Text("\(electricEfficiency)")
+//            Text("\(fullChargeHours)")
+//            Text("\(autoLevel)")
+//        }
+//    }
     
 }
 
@@ -100,15 +121,18 @@ class OilCar: Car, Fuel {
         return "내연기관"
     }
     
-    func carInfoView() -> some View {
-        Section(header: Text("Oil Car")) {
-            Text("\(brand)")
-            Text("\(modelName)")
-            Text("\(isAutomatic ? "자동변속" : "수동변성")")
-            Text("\(isGasoline ? "가솔린" : "디젤")")
-            Text("\(fuelEfficiency)")
-        }
+    override func carInfo() -> String {
+        return super.carInfo() + "\n\(isAutomatic ? "자동변속" : "수동변성")\n\(isGasoline ? "가솔린" : "디젤")\nFuel Efficiency: \(fuelEfficiency)km/h"
     }
+//    func carInfo() -> some View {
+//        Section(header: Text("Oil Car")) {
+//            Text("\(brand)")
+//            Text("\(modelName)")
+//            Text("\(isAutomatic ? "자동변속" : "수동변성")")
+//            Text("\(isGasoline ? "가솔린" : "디젤")")
+//            Text("\(fuelEfficiency)")
+//        }
+//    }
 }
 
 class HybridCar: Car, Electric {
@@ -126,14 +150,17 @@ class HybridCar: Car, Electric {
     override func returnType() -> String {
         return "하이브리드"
     }
-    func carInfoView() -> some View {
-        Section(header: Text("Hybrid Car")) {
-            Text("\(brand)")
-            Text("\(modelName)")
-            Text("\(isGasoline ? "가솔린" : "디젤")")
-            Text("\(fuelEfficiency)")
-            Text("\(autoLevel)")
-        }
+    override func carInfo() -> String {
+        return super.carInfo() + "\n\(isGasoline ? "가솔린" : "디젤")\nFuel Efficiency: \(fuelEfficiency)km/h\n자율주행 \(autoLevel)단계"
     }
+//    func carInfo() -> some View {
+//        Section(header: Text("Hybrid Car")) {
+//            Text("\(brand)")
+//            Text("\(modelName)")
+//            Text("\(isGasoline ? "가솔린" : "디젤")")
+//            Text("\(fuelEfficiency)")
+//            Text("\(autoLevel)")
+//        }
+//    }
 
 }
