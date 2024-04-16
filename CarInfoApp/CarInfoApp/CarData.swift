@@ -14,8 +14,6 @@ let kiaK5: OilCar = OilCar(brand: "KIA", modelName: "K5", year: 2023, doorCount:
 let prius: HybridCar = HybridCar(brand: "Toyota", modelName: "Prius", year: 2023, doorCount: 4, weight: 60, height: 40, fuelEfficiency: 65, isGasoline: true, autoLevel: 0)
 let grandeurHybrid: HybridCar = HybridCar(brand: "Hyundai", modelName: "그렌저 하이브리드", year: 2023, doorCount: 4, weight: 70, height: 35, fuelEfficiency: 16.7, isGasoline: true, autoLevel: 1)
 
-class CarListModel: ObservableObject {
-    @Published var cars: [Car] = [
+let cars: [Car] = [
        teslaModelX, teslaModelY, kiaK9, kiaK8, kiaK5, prius, grandeurHybrid
     ]
-}

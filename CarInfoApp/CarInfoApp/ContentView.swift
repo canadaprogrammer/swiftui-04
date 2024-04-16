@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var carModel = CarListModel()
+    var carModel = cars
     var body: some View {
         NavigationStack {
             List {
@@ -23,20 +23,7 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("TopGear")
-//            List(carModel.cars) { car in
-//                NavigationLink(destination: DetailView(fuelType: car.returnType())) {
-//                    Text(car.returnType())
-//                }
-//            }
-//            .navigationTitle("TopGear")
         }
-//        List {
-//            Section(header: Text("Electric Cars")) {
-//                ForEach(carModel.cars.filter {$0 is ElectricCar}, id: \.id) { car in
-//                    Text(car.modelName)
-//                }
-//            }
-//        }
     }
 }
 

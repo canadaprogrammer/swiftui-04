@@ -68,11 +68,6 @@ class Car: Identifiable, CarDescriptionProtocol {
     func carInfo() -> String {
         return "Brand: \(brand)\nModel: \(modelName)\nYear: \(year)"
     }
-//    func carInfo() -> some View {
-//        Section {
-//            Text("")
-//        }
-//    }
 }
 
 class ElectricCar: Car, Electric {
