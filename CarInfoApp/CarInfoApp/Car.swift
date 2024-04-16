@@ -29,15 +29,16 @@ extension Fuel {
     }
 }
 
-class Car: Identifiable {
+class Car: Identifiable {    
+    let id = UUID()
     var brand: String
     var modelName: String
     var year: Int
     var doorCount: Int
-    var weight: Int
-    var height: Int
+    var weight: Double
+    var height: Double
     
-    init(brand: String, modelName: String, year: Int, doorCount: Int, weight: Int, height: Int) {
+    init(brand: String, modelName: String, year: Int, doorCount: Int, weight: Double, height: Double) {
         self.brand = brand
         self.modelName = modelName
         self.year = year
@@ -61,7 +62,7 @@ class ElectricCar: Car, Electric {
     var fullChargeHours: Double
     var autoLevel: Int
     
-    init(brand: String, modelName: String, year: Int, doorCount: Int, weight: Int, height: Int, electricEfficiency: Double, fullChargeHours: Double, autoLevel: Int) {
+    init(brand: String, modelName: String, year: Int, doorCount: Int, weight: Double, height: Double, electricEfficiency: Double, fullChargeHours: Double, autoLevel: Int) {
         self.electricEfficiency = electricEfficiency
         self.fullChargeHours = fullChargeHours
         self.autoLevel = autoLevel
@@ -88,7 +89,7 @@ class OilCar: Car, Fuel {
     var fuelEfficiency: Double
     var isGasoline: Bool
     
-    init(brand: String, modelName: String, year: Int, doorCount: Int, weight: Int, height: Int, isAutomatic: Bool, fuelEfficiency: Double, isGasoline: Bool) {
+    init(brand: String, modelName: String, year: Int, doorCount: Int, weight: Double, height: Double, isAutomatic: Bool, fuelEfficiency: Double, isGasoline: Bool) {
         self.isAutomatic = isAutomatic
         self.fuelEfficiency = fuelEfficiency
         self.isGasoline = isGasoline
@@ -115,7 +116,7 @@ class HybridCar: Car, Electric {
     var isGasoline: Bool
     var autoLevel: Int
     
-    init(brand: String, modelName: String, year: Int, doorCount: Int, weight: Int, height: Int, fuelEfficiency: Double, isGasoline: Bool, autoLevel: Int) {
+    init(brand: String, modelName: String, year: Int, doorCount: Int, weight: Double, height: Double, fuelEfficiency: Double, isGasoline: Bool, autoLevel: Int) {
         self.fuelEfficiency = fuelEfficiency
         self.isGasoline = isGasoline
         self.autoLevel = autoLevel
