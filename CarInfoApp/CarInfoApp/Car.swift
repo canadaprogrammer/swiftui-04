@@ -50,8 +50,8 @@ class Car: Identifiable {
     func returnType() -> String {
         return ""
     }
-    func carInfo() -> some View {
-        VStack {
+    func carInfoView() -> some View {
+        Section {
             Text("")
         }
     }
@@ -72,8 +72,8 @@ class ElectricCar: Car, Electric {
     override func returnType() -> String {
         return "전기"
     }
-    func carInfo() -> some View {
-        VStack {
+    func carInfoViewView() -> some View {
+        Section(header: Text("Electric Car")) {
             Text("\(brand)")
             Text("\(modelName)")
             Text("\(electricEfficiency)")
@@ -100,8 +100,8 @@ class OilCar: Car, Fuel {
         return "내연기관"
     }
     
-    func carInfo() -> some View {
-        VStack {
+    func carInfoView() -> some View {
+        Section(header: Text("Oil Car")) {
             Text("\(brand)")
             Text("\(modelName)")
             Text("\(isAutomatic ? "자동변속" : "수동변성")")
@@ -126,8 +126,8 @@ class HybridCar: Car, Electric {
     override func returnType() -> String {
         return "하이브리드"
     }
-    func carInfo() -> some View {
-        VStack {
+    func carInfoView() -> some View {
+        Section(header: Text("Hybrid Car")) {
             Text("\(brand)")
             Text("\(modelName)")
             Text("\(isGasoline ? "가솔린" : "디젤")")
