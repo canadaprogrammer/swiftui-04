@@ -10,7 +10,18 @@ import SwiftUI
 struct ContentView: View {
     @State var fileopen: Bool = true
     var body: some View {
-        Text("Hello, ") + Text("world!") // 하나의 TextView
+        var myString: String = "File closed"
+        if(fileopen) {
+            myString = "File open"
+        }
+        return VStack {
+            HStack {
+                Text(myString)
+                    .padding()
+                Text("Goodbye, world")
+            }
+        }
+        
     }
 }
 
