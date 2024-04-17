@@ -24,18 +24,24 @@ func fileTransfer() throws {
 }
 
 func sendFile() -> String {
+    defer {
+        // 파일 닫기 등 종료 준비
+        print("end of sendfile")
+    }
     do {
         try fileTransfer()
-    } catch FileTransferError.noConnection {
-        return "No Connection"
-    } catch FileTransferError.lowBandWidth {
-        return "Speed too low"
-    } catch FileTransferError.fileNotFound {
-        return "File Not Found"
-    } catch {
-        return "Unknown error"
+//    } catch FileTransferError.noConnection {
+//        return "No Connection"
+//    } catch FileTransferError.lowBandWidth {
+//        return "Speed too low"
+    } catch FileTransferError.noConnection, FileTransferError.lowBandWidth {
+        return "Connection Problems"
+//    } catch FileTransferError.fileNotFound {
+//        return "File Not Found"
+    } catch let error {
+        return "error: \(error)"
     }
     return "Successful transfer"
 }
 
-sendFile()
+print(sendFile())
