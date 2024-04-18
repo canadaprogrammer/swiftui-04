@@ -10,36 +10,14 @@ import SwiftUI
 struct ContentView: View {
     @State var myLayout: AnyLayout = AnyLayout(VStackLayout())
     var body: some View {
-        VStack {
-            myLayout {
-                Image(systemName: "goforward.10")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit) // for image not squeezed
-                Image(systemName: "goforward.15")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-            }
-            HStack {
-                Button(action: {
-                    myLayout = AnyLayout(HStackLayout())
-                }) {
-                    Text("HStack")
-                }
-                Button(action: {
-                    myLayout = AnyLayout(VStackLayout())
-                }) {
-                    Text("VStack")
-                }
-            }
-            .transaction {
-                $0.disablesAnimations = true
-            }
-            // $0 첫번째 파라미터, .transaction 은 transaction 파리미터를 가지고 있음
-            // 동일한 코드
-//            .transaction { transaction in
-//                transaction.disablesAnimations = true
-//            }
+        HStack {
+            Text("Hello World, how are you?")
+                .font(.largeTitle)
+                .border(Color.black)
+//                .frame(minWidth: 100, maxWidth: 300, minHeight: 100, maxHeight: 100, alignment: .center)
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 #Preview {
