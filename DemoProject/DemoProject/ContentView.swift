@@ -33,6 +33,7 @@ struct ContentView: View {
                 Image(systemName: "star.fill")
                 Image(systemName: "star")
             }
+            Label("Welcome", systemImage: "tortoise")
         }
     }
 }
