@@ -8,26 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var myLayout: AnyLayout = AnyLayout(VStackLayout())
     var body: some View {
-        VStack (spacing: 20){
+        VStack {
+            myLayout {
+                Image(systemName: "goforward.10")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit) // for image not squeezed
+                Image(systemName: "goforward.15")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
             HStack {
-                Group {
-                    Image(systemName: "goforward.10")
-                    Image(systemName: "goforward.15")
-                    Image(systemName: "goforward.30")
-                    Image(systemName: "goforward.10")
-                    Image(systemName: "goforward.15")
-                    Image(systemName: "goforward.30")
+                Button(action: {
+                    myLayout = AnyLayout(HStackLayout())
+                }) {
+                    Text("HStack")
                 }
-                Group {
-                    
-                    Image(systemName: "goforward.10")
-                    Image(systemName: "goforward.15")
-                    Image(systemName: "goforward.30")
-                    Image(systemName: "goforward.10")
-                    Image(systemName: "goforward.15")
-                    Image(systemName: "goforward.30")
+                Button(action: {
+                    myLayout = AnyLayout(VStackLayout())
+                }) {
+                    Text("VStack")
                 }
+                
             }
         }
     }
