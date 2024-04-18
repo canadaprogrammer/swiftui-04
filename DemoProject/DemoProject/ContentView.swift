@@ -31,7 +31,14 @@ struct ContentView: View {
                     Text("VStack")
                 }
             }
-            .transaction { $0.disablesAnimations = true}
+            .transaction {
+                $0.disablesAnimations = true
+            }
+            // $0 첫번째 파라미터, .transaction 은 transaction 파리미터를 가지고 있음
+            // 동일한 코드
+//            .transaction { transaction in
+//                transaction.disablesAnimations = true
+//            }
         }
     }
 }
