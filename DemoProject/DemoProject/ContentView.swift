@@ -30,8 +30,8 @@ struct ContentView: View {
                 }) {
                     Text("VStack")
                 }
-                
             }
+            .transaction { $0.disablesAnimations = true}
         }
     }
 }
