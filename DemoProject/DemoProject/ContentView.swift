@@ -11,22 +11,23 @@ struct ContentView: View {
     var body: some View {
         VStack (spacing: 20){
             HStack {
-                Image(systemName: "goforward.10")
-                Image(systemName: "goforward.15")
-                Image(systemName: "goforward.30")
-            }
-            .font(.largeTitle)
-            HStack(alignment: .top) {
-                Spacer()
-                Text("Q1 Sales")
-                Spacer()
-                VStack(alignment: .trailing) {
-                    Text("January")
-                    Text("February")
-                    Text("March")
+                Group {
+                    Image(systemName: "goforward.10")
+                    Image(systemName: "goforward.15")
+                    Image(systemName: "goforward.30")
+                    Image(systemName: "goforward.10")
+                    Image(systemName: "goforward.15")
+                    Image(systemName: "goforward.30")
                 }
-                .padding()
-                Spacer()
+                Group {
+                    
+                    Image(systemName: "goforward.10")
+                    Image(systemName: "goforward.15")
+                    Image(systemName: "goforward.30")
+                    Image(systemName: "goforward.10")
+                    Image(systemName: "goforward.15")
+                    Image(systemName: "goforward.30")
+                }
             }
         }
     }
