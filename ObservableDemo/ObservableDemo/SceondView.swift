@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SecondView: View {
-    @StateObject var timerData: TimerData
+    @EnvironmentObject var timerData: TimerData
     
     var body: some View {
         VStack {
@@ -18,4 +18,9 @@ struct SecondView: View {
                 .font(.headline)
         }
     }
+}
+
+#Preview {
+    SecondView()
+        .environmentObject(TimerData())
 }
