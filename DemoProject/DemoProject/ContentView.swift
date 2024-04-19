@@ -21,14 +21,19 @@ struct ContentView: View {
     func doSomething() {
         print("Start \(Date())")
         Task {
-            await takesTooLong()
+//            let result = await takesTooLong()
+//            print("Date result: \(result)")
+            async let result = takesTooLong()
+            print("Date result: \(await result)")
+            
         }
         print("End \(Date())")
     }
     
-    func takesTooLong() async {
+    func takesTooLong() async -> Date {
         sleep(5)
         print("Async task completed at \(Date())")
+        return Date()
     }
 }
 #Preview {
