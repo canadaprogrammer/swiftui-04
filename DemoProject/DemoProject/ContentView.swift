@@ -74,6 +74,27 @@ struct ContentView: View {
                         .font(.subheadline)
                 }
             }
+            
+            Button("Fetch Data in Background") {
+                Task.detached {
+                    do {
+                        let service = GithubService() // detached 여서 githubService를 사용 못하고 안에서 함수 선언을 다시함
+                        try await withThrowingTaskGroup(of: Void.self) { group in
+                            group.addTask {
+                                repositories = try await service.fetchRepositories(username: username)
+                            }
+                            group.addTask {
+                                user = try await service.fetchUser(username: username)
+                            }
+                            try await group.waitForAll()
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            print("\(error)")
+                        }
+                    }
+                }
+            }
         }
     }
     
