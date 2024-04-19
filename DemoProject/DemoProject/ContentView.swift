@@ -7,26 +7,28 @@
 
 import SwiftUI
 
-class DemoData: ObservableObject {
-    @Published var userCount = 0
-    
-    func increment() {
-        userCount += 1
-    }
-}
 struct ContentView: View {
-    @ObservedObject var demoData: DemoData = DemoData()
     var body: some View {
         VStack {
-            Text("you are user number \(demoData.userCount)")
-            
             Button(action: {
-                demoData.increment()
+               doSomething()
             }) {
-                Text("Increment")
-                    .font(.largeTitle)
+                Text("Do Something")
             }
         }
+    }
+    
+    func doSomething() {
+        print("Start \(Date())")
+        Task {
+            await takesTooLong()
+        }
+        print("End \(Date())")
+    }
+    
+    func takesTooLong() async {
+        sleep(5)
+        print("Async task completed at \(Date())")
     }
 }
 #Preview {
