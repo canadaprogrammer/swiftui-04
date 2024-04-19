@@ -20,13 +20,13 @@ struct ContentView: View {
     
     func doSomething() {
         print("Start \(Date())")
-        Task {
+        let detachedTask = Task.detached {
 //            let result = await takesTooLong()
 //            print("Date result: \(result)")
             async let result = takesTooLong()
             print("Date result: \(await result)")
-            
         }
+        print(detachedTask.isCancelled)
         print("End \(Date())")
     }
     
