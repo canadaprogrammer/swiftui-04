@@ -13,9 +13,18 @@ struct Repository: Codable, Identifiable {
     let description: String?
 }
 
+actor GithubService {
+    func fetchRepositories(username: String) async throws -> [Repository] {
+        let url = URL(string: "https://api.github.com/users/\(username)/repos")!
+        let (data, _) = try await URLSession.shared.data(from: url)
+        return try JSONDecoder().decode([Repository].self, from: data)
+    }
+}
+
 struct ContentView: View {
     @State private var username = "jmbae"
     @State private var repositories: [Repository] = []
+    let githubService = GithubService()
     var body: some View {
         VStack {
             TextField("Github username:", text: $username)
@@ -24,7 +33,7 @@ struct ContentView: View {
             Button("Fetch Data") {
                 Task {
                     do {
-                        async let fetchRepositoris = fetchRepositories(username: username)
+                        async let fetchRepositoris = githubService.fetchRepositories(username: username)
                         repositories = try await fetchRepositoris
                     } catch {
                         print("Error: \(error)")
@@ -42,11 +51,6 @@ struct ContentView: View {
         }
     }
     
-    func fetchRepositories(username: String) async throws -> [Repository] {
-        let url = URL(string: "https://api.github.com/users/\(username)/repos")!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        return try JSONDecoder().decode([Repository].self, from: data)
-    }
 }
 #Preview {
     ContentView()
