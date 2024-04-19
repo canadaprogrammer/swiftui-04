@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+struct User: Codable {
+    let login: String
+    let avatar_url: URL
+}
 struct Repository: Codable, Identifiable {
     let id: Int
     let name: String
@@ -19,12 +23,19 @@ actor GithubService {
         let (data, _) = try await URLSession.shared.data(from: url)
         return try JSONDecoder().decode([Repository].self, from: data)
     }
+    func fetchUser(username: String) async throws -> User {
+        let url = URL(string: "https://api.github.com/users/\(username)")!
+        let (data, _) = try await URLSession.shared.data(from: url)
+        return try JSONDecoder().decode(User.self, from: data)
+    }
 }
 
 struct ContentView: View {
-    @State private var username = "jmbae"
+    @State private var username = "canadaprogrammer"
     @State private var repositories: [Repository] = []
+    @State private var user: User?
     let githubService = GithubService()
+    
     var body: some View {
         VStack {
             TextField("Github username:", text: $username)
@@ -33,12 +44,27 @@ struct ContentView: View {
             Button("Fetch Data") {
                 Task {
                     do {
-                        async let fetchRepositoris = githubService.fetchRepositories(username: username)
-                        repositories = try await fetchRepositoris
+                        async let fetchRepositoriesResult = githubService.fetchRepositories(username: username)
+                        async let fetchUserResult = githubService.fetchUser(username: username)
+                        repositories = try await fetchRepositoriesResult
+                        user = try await fetchUserResult
                     } catch {
                         print("Error: \(error)")
                     }
                 }
+            }
+            
+            if let user = user {
+                AsyncImage(url: user.avatar_url) { image in
+                    image.resizable()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 100, height: 100)
+                .clipShape(Circle())
+                
+                Text(user.login)
+                    .font(.title)
             }
             List(repositories) { repo in
                 VStack(alignment: .leading) {
