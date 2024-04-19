@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Codable 로 정의를 해 놓으면 JSONDecoder 에서 해당 구조체의 배열로 할당이 됨
 struct User: Codable {
     let login: String
     let avatar_url: URL
@@ -16,7 +17,8 @@ struct Repository: Codable, Identifiable {
     let name: String
     let description: String?
 }
-
+// actor 는 중간에 방해받지 않도록 thread 에서 분리 시켜놓은 코드
+// actor 는 복잡한 상황에서 한가지의 실행흐름만 가질 수 있도록 정리해주는 역할을 실행
 actor GithubService {
     func fetchRepositories(username: String) async throws -> [Repository] {
         let url = URL(string: "https://api.github.com/users/\(username)/repos")!
@@ -29,35 +31,48 @@ actor GithubService {
         return try JSONDecoder().decode(User.self, from: data)
     }
 }
-
-struct ContentView: View {
-    @State private var username = "canadaprogrammer"
-    @State private var repositories: [Repository] = []
-    @State private var user: User?
+// 메인 thread에 알려주도록 @MainActor로 ViewModel을 지정
+// 프로그램 전체에서 엑세스할 수 있도록
+@MainActor
+class GithubViewModel: ObservableObject {
+    @Published var repositories: [Repository] = []
+    @Published var user: User?
+    @Published var error: Error?
+    
     let githubService = GithubService()
     
+    func fetchData(username: String) async {
+        do {
+            error = nil
+            async let fetchRepositoriesResult = githubService.fetchRepositories(username: username)
+            async let fetchUserResult = githubService.fetchUser(username: username)
+            repositories = try await fetchRepositoriesResult
+            user = try await fetchUserResult
+        } catch {
+            self.error = error
+        }
+    }
+}
+struct ContentView: View {
+    @State private var username = "canadaprogrammer"
+    @StateObject private var viewModel = GithubViewModel()
     var body: some View {
         VStack {
             TextField("Github username:", text: $username)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             Button("Fetch Data") {
-                Task {
-                    do {
-                        async let fetchRepositoriesResult = githubService.fetchRepositories(username: username)
-                        async let fetchUserResult = githubService.fetchUser(username: username)
-                        repositories = try await fetchRepositoriesResult
-                        user = try await fetchUserResult
-                    } catch {
-                        print("Error: \(error)")
-                    }
+                // 별도의 thread에서 작동
+                Task.detached {
+                    await viewModel.fetchData(username: username)
                 }
             }
             
-            if let user = user {
+            if let user = viewModel.user {
                 AsyncImage(url: user.avatar_url) { image in
                     image.resizable()
                 } placeholder: {
+                    // 이미지도 비동기로 가져오
                     ProgressView()
                 }
                 .frame(width: 100, height: 100)
@@ -66,7 +81,7 @@ struct ContentView: View {
                 Text(user.login)
                     .font(.title)
             }
-            List(repositories) { repo in
+            List(viewModel.repositories) { repo in
                 VStack(alignment: .leading) {
                     Text(repo.name)
                         .font(.headline)
@@ -74,26 +89,9 @@ struct ContentView: View {
                         .font(.subheadline)
                 }
             }
-            
-            Button("Fetch Data in Background") {
-                Task.detached {
-                    do {
-                        let service = GithubService() // detached 여서 githubService를 사용 못하고 안에서 함수 선언을 다시함
-                        try await withThrowingTaskGroup(of: Void.self) { group in
-                            group.addTask {
-                                repositories = try await service.fetchRepositories(username: username)
-                            }
-                            group.addTask {
-                                user = try await service.fetchUser(username: username)
-                            }
-                            try await group.waitForAll()
-                        }
-                    } catch {
-                        DispatchQueue.main.async {
-                            print("\(error)")
-                        }
-                    }
-                }
+            if let error = viewModel.error {
+                Text("Error: \(error.localizedDescription)")
+                    .foregroundColor(.red)
             }
         }
     }
