@@ -11,6 +11,8 @@
 		3C9F0F0B2BD5E29D00A2BFAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9F0F0A2BD5E29D00A2BFAB /* ContentView.swift */; };
 		3C9F0F0D2BD5E29F00A2BFAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C9F0F0C2BD5E29F00A2BFAB /* Assets.xcassets */; };
 		3C9F0F112BD5E29F00A2BFAB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C9F0F102BD5E29F00A2BFAB /* Preview Assets.xcassets */; };
+		3C9F0F182BD5E98400A2BFAB /* AppStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9F0F172BD5E98400A2BFAB /* AppStorageView.swift */; };
+		3C9F0F1A2BD5E99300A2BFAB /* SceneStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9F0F192BD5E99300A2BFAB /* SceneStorageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		3C9F0F0C2BD5E29F00A2BFAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C9F0F0E2BD5E29F00A2BFAB /* StorageDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StorageDemo.entitlements; sourceTree = "<group>"; };
 		3C9F0F102BD5E29F00A2BFAB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3C9F0F172BD5E98400A2BFAB /* AppStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageView.swift; sourceTree = "<group>"; };
+		3C9F0F192BD5E99300A2BFAB /* SceneStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStorageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 			children = (
 				3C9F0F082BD5E29D00A2BFAB /* StorageDemoApp.swift */,
 				3C9F0F0A2BD5E29D00A2BFAB /* ContentView.swift */,
+				3C9F0F172BD5E98400A2BFAB /* AppStorageView.swift */,
+				3C9F0F192BD5E99300A2BFAB /* SceneStorageView.swift */,
 				3C9F0F0C2BD5E29F00A2BFAB /* Assets.xcassets */,
 				3C9F0F0E2BD5E29F00A2BFAB /* StorageDemo.entitlements */,
 				3C9F0F0F2BD5E29F00A2BFAB /* Preview Content */,
@@ -139,8 +145,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C9F0F182BD5E98400A2BFAB /* AppStorageView.swift in Sources */,
 				3C9F0F0B2BD5E29D00A2BFAB /* ContentView.swift in Sources */,
 				3C9F0F092BD5E29D00A2BFAB /* StorageDemoApp.swift in Sources */,
+				3C9F0F1A2BD5E99300A2BFAB /* SceneStorageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +278,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StorageDemo/Preview Content\"";
+				DEVELOPMENT_TEAM = B8D5M6C29N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -306,6 +315,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StorageDemo/Preview Content\"";
+				DEVELOPMENT_TEAM = B8D5M6C29N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
